@@ -39,6 +39,7 @@ public class CriarNovoCartaoService {
         Usuario usuario = usuarioRepository.findById(cadastroRequest.getIdentificador())
                 .orElseThrow(() -> new NotFoundException("Usuario"));
 
+        List<Cartao> listaCartoes = new ArrayList<>();
         List<CadastroUsuarioResponse> listaResposta = new ArrayList<>();
 
         for (String dependente : cadastroRequest.getDependentes()) {
@@ -47,10 +48,11 @@ public class CriarNovoCartaoService {
             cartao.setDependente(true);
             cartao.setTipoCartao(TipoCartao.PRATA);
             cartao.setNomeTitular(dependente);
-            cartaoRepository.save(cartao);
+            listaCartoes.add(cartao);
             listaResposta.add(new CadastroUsuarioResponse(cartao.getNumeroCartao(), cartao.getNomeTitular(),
                     cartao.getTipoCartao(), usuario.getNome()));
         }
+        cartaoRepository.saveAll(listaCartoes);
         return listaResposta;
     }
 
