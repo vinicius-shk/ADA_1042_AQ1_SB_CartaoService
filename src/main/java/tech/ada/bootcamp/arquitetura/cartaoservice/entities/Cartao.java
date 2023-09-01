@@ -2,6 +2,7 @@ package tech.ada.bootcamp.arquitetura.cartaoservice.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.TipoCartao;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CriarNovoCartaoRequest;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "cartao")
+@NoArgsConstructor
 public class Cartao {
     @Id
     private String numeroCartao;
