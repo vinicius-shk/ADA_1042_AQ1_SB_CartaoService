@@ -19,4 +19,5 @@ public class CadastroUsuarioRequest {
 
     private List<String> dependentes;
 
+    private CriarNovoCartaoRequest dadosCartao;
 }
