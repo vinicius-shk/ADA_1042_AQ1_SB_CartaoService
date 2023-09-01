@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroUsuarioRequest;
+import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CriarNovoCartaoRequest;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.response.CadastroUsuarioResponse;
 import tech.ada.bootcamp.arquitetura.cartaoservice.services.CriarNovoCartaoService;
 
@@ -20,7 +21,7 @@ public class CartaoController {
     }
 
     @PostMapping(path = "", produces = "application/json")
-    public CadastroUsuarioResponse adicionarCartao(@RequestBody CadastroUsuarioRequest cadastroUsuarioRequest) {
-        return this.cartaoService.execute(cadastroUsuarioRequest);
+    public CadastroUsuarioResponse adicionarCartao(@RequestBody CriarNovoCartaoRequest criarNovoCartaoRequest) {
+        return this.cartaoService.execute(criarNovoCartaoRequest);
     }
 }

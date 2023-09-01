@@ -6,6 +6,7 @@ import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Cartao;
 import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Usuario;
 import tech.ada.bootcamp.arquitetura.cartaoservice.exceptions.NotFoundException;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroUsuarioRequest;
+import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CriarNovoCartaoRequest;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.response.CadastroUsuarioResponse;
 import tech.ada.bootcamp.arquitetura.cartaoservice.repositories.CartaoRepository;
 import tech.ada.bootcamp.arquitetura.cartaoservice.repositories.UsuarioRepository;
@@ -23,19 +24,19 @@ public class CriarNovoCartaoService {
     private final UsuarioRepository usuarioRepository;
     private static Random random;
 
-    public CadastroUsuarioResponse execute(CadastroUsuarioRequest cadastroUsuarioRequest) {
-        LocalDate dataAtual = LocalDate.now();
-        Cartao cartao = new Cartao();
+    public CadastroUsuarioResponse execute(CriarNovoCartaoRequest criarNovoCartaoRequest) {
+        //LocalDate dataAtual = LocalDate.now();
+        Cartao cartao = new Cartao(criarNovoCartaoRequest, gerarNumeroAleatorio(3),gerarNumeroAleatorio(12) );
 
-        cartao.setTipoCartao(cadastroUsuarioRequest.getTipoCartao());
-        Usuario usuario = usuarioRepository.findById(cadastroUsuarioRequest.getIdentificador())
+        //cartao.setTipoCartao(criarNovoCartaoRequest.getTipoCartao());
+        Usuario usuario = usuarioRepository.findById(criarNovoCartaoRequest.getUsuario().getIdentificador())
             .orElseThrow(() -> new NotFoundException("Usuario"));
-        cartao.setUsuario(usuario);
-        cartao.setIdContaBanco(UUID.randomUUID().toString());
-        cartao.setNomeTitular(cadastroUsuarioRequest.getNome());
-        cartao.setVencimentoCartao(dataAtual.plusYears(5));
-        cartao.setCodigoSeguranca(gerarNumeroAleatorio(3));
-        cartao.setNumeroCartao(gerarNumeroAleatorio(12));
+        //cartao.setUsuario(usuario);
+       // cartao.setIdContaBanco(UUID.randomUUID().toString());
+       // cartao.setNomeTitular(criarNovoCartaoRequest.getNomeTitular());
+        //cartao.setVencimentoCartao(dataAtual.plusYears(5));
+        //cartao.setCodigoSeguranca(gerarNumeroAleatorio(3));
+        //cartao.setNumeroCartao(gerarNumeroAleatorio(12));
         cartaoRepository.save(cartao);
         return new CadastroUsuarioResponse(cartao.getNumeroCartao(), cartao.getNomeTitular(),
             cartao.getTipoCartao(), usuario.getNome());
