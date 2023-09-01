@@ -29,12 +29,11 @@ public class Cartao {
     @JoinColumn(name = "usuarioIdentificador")
     private Usuario usuario;
 
-    public Cartao(CriarNovoCartaoRequest dto, String codigoSeguranca, String numeroCartao) {
+    public Cartao(CriarNovoCartaoRequest dto, String codigoSeguranca, String numeroCartao, Usuario user) {
         LocalDate dataAtual = LocalDate.now();
         this.nomeTitular = dto.getNomeTitular();
         this.tipoCartao = dto.getTipoCartao();
-        this.usuario = new Usuario();
-        usuario.setIdentificador(dto.getUsuario().getIdentificador());
+        this.usuario = user;
         this.idContaBanco = UUID.randomUUID().toString();
         this.vencimentoCartao = dataAtual.plusYears(5);
         this.codigoSeguranca = codigoSeguranca;
